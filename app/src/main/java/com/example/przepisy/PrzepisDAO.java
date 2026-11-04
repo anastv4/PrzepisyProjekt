@@ -22,5 +22,6 @@ public interface PrzepisDAO {
     @Update
     public void aktualizuj(Przepis przepis);
 
-
+    @Query("SELECT * FROM przepisy")
+    public List<Przepis> zwrocWszystkiePrzepisy();
 }
