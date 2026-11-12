@@ -24,4 +24,7 @@ public interface PrzepisDAO {
 
     @Query("SELECT * FROM przepisy")
     public List<Przepis> zwrocWszystkiePrzepisy();
+
+    //@Query("SELECT nazwa FROM przepisy WHERE iloscGosci < 4 ")
+    //public List<Przepis> zwrocIloscGosciMniejszeNiz();
 }

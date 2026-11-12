@@ -27,4 +27,11 @@ public class Przepis {
     public Przepis(){
 
     }
+
+    @Override
+    public String toString() {
+       return
+               "nazwa " + nazwa + "\n" +
+                       "składniki: " + skladnik;
+    }
 }
