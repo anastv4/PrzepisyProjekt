@@ -17,6 +17,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.room.Room;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,10 +26,11 @@ public class MainActivity extends AppCompatActivity {
     private EditText editTextNazwa, editTextSkladniki, editTextCzasgotowania;
     private Spinner spinnerIlosc;
     private CheckBox checkBoxCzyGluteinowy;
-    private Button button;
+    private Button button, buttonAktualizuj;
     private ListView listView;
     private ArrayAdapter<Przepis> arrayAdapter;
     private List<Przepis> przepisy;
+    private Przepis kliknietyprzepis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         editTextCzasgotowania = findViewById(R.id.editTextText3);
         spinnerIlosc = findViewById(R.id.spinner);
         checkBoxCzyGluteinowy = findViewById(R.id.checkBox);
+        buttonAktualizuj = findViewById(R.id.buttonAktualizuj);
+
 
         przepisDataBase = Room.databaseBuilder(
                 getApplicationContext(),
@@ -84,6 +89,23 @@ public class MainActivity extends AppCompatActivity {
                         arrayAdapter.notifyDataSetChanged();
                         return false;
 
+                    }
+                }
+        );
+        listView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        kliknietyprzepis = przepisy.get(i);
+                        editTextNazwa.setText(kliknietyprzepis.nazwa);
+                        editTextCzasgotowania.setText(kliknietyprzepis.czasPrzygotowania);
+                        editTextSkladniki.setText(kliknietyprzepis.skladnik);
+                        checkBoxCzyGluteinowy.setChecked(kliknietyprzepis.czyGlutenne);
+                        ArrayList<String> iloscGosci = new ArrayList<String>(Arrays.asList(
+                                "2", "4", "6", "10;"
+                        ));spinnerIlosc.setSelection(iloscGosci.indexOf(kliknietyprzepis.iloscGosci));
+
+                        checkBoxCzyGluteinowy.setChecked(kliknietyprzepis.czyGlutenne);
                     }
                 }
         );
